@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
                 // execute after button pressed
                 String home = home_text.getText().toString();       // get text from home_text
 
-                if(home != ""){
+                if(home != "Hallo"){
                     home_text.setText("Search...");
                 }else{
                     home_text.setText("Not Found");
