@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if(home != ""){
                     home_text.setText("Search...");
+                }else{
+                    home_text.setText("Not Found");
                 }
 
             }
