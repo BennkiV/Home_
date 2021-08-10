@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 if(home != ""){
                     home_text.setText("Search...");
                 }
-
+                "Du Hurensohn"
             }
         });
     }
