@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     home_text.setText("Not Found");
                 }
-                "Du Hurensohn"
+                //"Du Hurensohn"
+                // "No U"
             }
         });
     }
