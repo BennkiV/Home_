@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -31,23 +32,26 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     // Location variable    (Global)
-    FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+    FusedLocationProviderClient fusedLocationProviderClient;
     // Assign variables     (Global)
-    final EditText home_text = (EditText) findViewById(R.id.Home_Text);     // define Button
-    final Button search_button = findViewById(R.id.Search_Button);          // define Search_text
+    EditText home_text;     // define Button
+    Button search_button;          // define Search_text
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize variables
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        home_text =  (EditText) findViewById(R.id.Home_Text);
+        search_button = findViewById(R.id.Search_Button);
 
         // Location     OLD !!!
         //--------------------------------------------------------------------------------------------------
         // LocationManager location_manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         // location_manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         //------------------------------------------------------------------------------------------------
-
 
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    @SuppressLint("MissingPermission")  // ?!   --------------------------------------------------------------
     private void getLocation() {
         fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
