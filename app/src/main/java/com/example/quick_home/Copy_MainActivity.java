@@ -10,6 +10,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,25 +22,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
-
+public class Copy_MainActivity extends AppCompatActivity {
+/*
     // Location variable    (Global)
     FusedLocationProviderClient fusedLocationProviderClient;
-    String current_location;        // string contains the current location
-
     // Assign variables     (Global)
-    EditText home_text;
-    Button search_button;
-    TextView text_view1;
-
-    // Get WebSite
-    URL url;
-    HttpURLConnection urlConnection;
+    EditText home_text;     // define Button
+    Button search_button;          // define Search_text
+    TextView text_view1, text_view2, text_view3;;
 
 
     @Override
@@ -48,38 +41,43 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Initialize variables
-        // Location
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        getLocation();          // need to be done else the location wont show up
-
-        // Website
-        try {
-            url = new URL("https://www.bahn.de/p/view/index.shtml");        // set url on DB website
-            urlConnection = (HttpURLConnection) url.openConnection();             // open connection
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // GUI
         home_text = (EditText) findViewById(R.id.Home_Text);
         search_button = findViewById(R.id.Search_Button);
         text_view1 = findViewById(R.id.textView);
+        text_view2 = findViewById(R.id.textView2);
+        text_view3 = findViewById(R.id.textView3);
 
-        // Button Click
+        // Location     OLD !!!
+        //--------------------------------------------------------------------------------------------------
+        // LocationManager location_manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        // location_manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        //------------------------------------------------------------------------------------------------
+
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get location
-                getLocation();                          // get location string
-                if(current_location != null) {
-                    text_view1.setText(current_location);   // print location in text_view1
-                }else {
-                    text_view1.setText("Fail");
+
+                // OLD !!!
+                // Check Location permission
+/*                //-----------------------------------------------------------------------------------------
+                if (ActivityCompat.checkSelfPermission(MainActivity.this
+                        , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    // When permission granted
+                    getLocation();
+                } else {
+                    // When permission denied
+                    ActivityCompat.requestPermissions(MainActivity.this
+                            , new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+
                 }
+  */
+ /*               getLocation();
                 //-----------------------------------------------------------------------------------------
                 // execute after button pressed
                 String home = home_text.getText().toString();       // get text from home_text
-                if (!home.equalsIgnoreCase("")) {             // string compare -_-
+
+                if (home != "Hallo") {
                     home_text.setText("Search...");
                 } else {
                     home_text.setText("Not Found");
@@ -90,10 +88,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void getLocation() {
-        // If permission abfrage hier, da Java sich beschwert
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this
+        // If abfrage hier da Java sich beschwert
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(Copy_MainActivity.this
                     , new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
 
             return;
@@ -107,21 +104,29 @@ public class MainActivity extends AppCompatActivity {
 
                     try {
                         //Initialize geoCoder
-                        Geocoder geocoder = new Geocoder(MainActivity.this,
+                        Geocoder geocoder = new Geocoder(Copy_MainActivity.this,
                                 Locale.getDefault());
                         // Initialize address List
                         List<Address> address = geocoder.getFromLocation(
                                 location.getLatitude(), location.getLongitude(), 1
                         );
-                        current_location = address.get(0).getAddressLine(0);          // set string to location
-
-                        // get street name and print in textView1 ----------------------------------------             !!!
-   /*                     String street = address.get(0).getAddressLine(0);     // store address as string
-                        text_view1.setText(Html.fromHtml(
-                                "<font color?'#6200'><b>Street :</b><br></font>"
-                                + address.get(0).getAddressLine(0)
+                        // Set Latitude on TextView
+                        text_view1.setText(Html.fromHtml(                                           // ausgabe der coordinaten brete
+                                "<font color?'#6200'><b>Latitude :</b><br></font>"
+                                        + address.get(0).getLatitude()
                         ));
-    */
+                        // Set Longitude
+                        text_view2.setText(Html.fromHtml(                                           // ausgabe der coordinaten länge
+                                "<font color?'#6200'><b>Longitude :</b><br></font>"
+                                        + address.get(0).getLongitude()
+                        ));
+
+                        // get street name ----------------------------------------             !!!
+                        // String street = address.get(0).getAddressLine(0);
+                        text_view3.setText(Html.fromHtml(
+                                "<font color?'#6200'><b>Street :</b><br></font>"
+                                        + address.get(0).getAddressLine(0)
+                        ));
                         //----------------------------------------------------------            !!
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -131,5 +136,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-}
+   }
+*/}
