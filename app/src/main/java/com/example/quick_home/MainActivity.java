@@ -20,7 +20,11 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -69,25 +73,32 @@ public class MainActivity extends AppCompatActivity {
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get location
+/*                // get location
+                // Test set the location directly after button click
                 getLocation();                          // get location string
                 if(current_location != null) {
                     text_view1.setText(current_location);   // print location in text_view1
                 }else {
                     text_view1.setText("Fail");
                 }
-                //-----------------------------------------------------------------------------------------
+*/              //-----------------------------------------------------------------------------------------
                 // execute after button pressed
                 String home = home_text.getText().toString();       // get text from home_text
                 if (!home.equalsIgnoreCase("")) {             // string compare -_-
+                    // get location
+                    getLocation();
+                    text_view1.setText(current_location);   // print location in text_view1
+
+                    // search web
+
+
                     home_text.setText("Search...");
                 } else {
-                    home_text.setText("Not Found");
+                    home_text.setText("Try again");
                 }
             }
         });
     }
-
 
     private void getLocation() {
         // If permission abfrage hier, da Java sich beschwert
