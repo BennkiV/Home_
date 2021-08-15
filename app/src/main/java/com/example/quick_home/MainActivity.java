@@ -59,13 +59,21 @@ public class MainActivity extends AppCompatActivity {
         getLocation();          // need to be done else the location wont show up
 
         // Website
-     /*   try {
+        getInternetPermission();
+/*        try {
             url = new URL("https://www.bahn.de/p/view/index.shtml");        // set url on DB website
             urlConnection = (HttpURLConnection) url.openConnection();             // open connection
         } catch (IOException e) {
             e.printStackTrace();
+        }finally{
+            urlConnection.disconnect();
         }
 */
+        try {
+            utility.open_connection("https://www.bahn.de/p/view/index.shtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // GUI
         home_text = (EditText) findViewById(R.id.Home_Text);
         search_button = findViewById(R.id.Search_Button);
@@ -145,4 +153,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void getInternetPermission(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this
+                    , new String[]{Manifest.permission.INTERNET}, 44);
+
+            return;
+        }
+    }
+
 }
