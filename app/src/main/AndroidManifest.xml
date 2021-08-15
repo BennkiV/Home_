@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quick_home">
 
-    <!-- __________________For location required ____________________________ -->
+    <!-- _________________ For location required ____________________________ -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- _________________ For internet connection __________________________ -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!--_____________________________________________________________________ -->
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

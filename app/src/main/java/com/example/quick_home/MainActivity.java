@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Locale;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     // Get WebSite
     URL url;
     HttpURLConnection urlConnection;
+    Utility utility;
 
 
     @Override
@@ -57,13 +59,13 @@ public class MainActivity extends AppCompatActivity {
         getLocation();          // need to be done else the location wont show up
 
         // Website
-        try {
+     /*   try {
             url = new URL("https://www.bahn.de/p/view/index.shtml");        // set url on DB website
             urlConnection = (HttpURLConnection) url.openConnection();             // open connection
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+*/
         // GUI
         home_text = (EditText) findViewById(R.id.Home_Text);
         search_button = findViewById(R.id.Search_Button);
