@@ -79,12 +79,12 @@ public class MainActivity extends AppCompatActivity {
                     home_text.setText("Try again");
                 }
 
-                try {
+ /*               try {
                     home_text.setText(utility.get_info());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
+*/
                 // go to next Activity
                 // transitConnection();
 

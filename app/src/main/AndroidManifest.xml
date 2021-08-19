@@ -2,9 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quick_home">
     <!-- _________________ For location required ____________________________ -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- _________________ For internet connection __________________________ -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- _____________________________________________________________________ -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- _________________ For internet connection __________________________ -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- _____________________________________________________________________ -->
+
+
 
     <application
         android:allowBackup="true"
@@ -13,7 +18,7 @@
         android:roundIcon="@mipmap/home_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Quick_Home">
-        <activity android:name=".TransitConnection"></activity>
+        <activity android:name=".TransitConnection"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

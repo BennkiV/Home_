@@ -19,7 +19,7 @@
         android:layout_marginLeft="38dp"
         android:layout_marginTop="105dp"
         android:layout_marginBottom="607dp"
-        android:text="Origin"
+        android:text="@string/origin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
         android:layout_marginEnd="65dp"
         android:layout_marginRight="65dp"
         android:layout_marginBottom="604dp"
-        android:text="Destination"
+        android:text="@string/destination"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Origin1"
@@ -47,7 +47,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginLeft="36dp"
         android:layout_marginTop="5dp"
-        android:text="Time"
+        android:text="@string/time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Origin1" />
 
@@ -58,7 +58,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
-        android:text="Time"
+        android:text="@string/time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Destination2" />
 
@@ -72,7 +72,7 @@
         android:layout_marginEnd="180dp"
         android:layout_marginRight="180dp"
         android:layout_marginBottom="678dp"
-        android:text="Transit Connection"
+        android:text="@string/transit_connection"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

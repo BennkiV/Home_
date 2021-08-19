@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="address">Address</string>
+    <string name="destination">Destination</string>
+    <string name="time">Time</string>
+    <string name="transit_connection">Transit Connection</string>
+</resources>
