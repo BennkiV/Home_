@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
     FusedLocationProviderClient fusedLocationProviderClient;
     String current_location;        // string contains the current location after func getLocation
 
+    // WebSite
+    Utility utility;
+
     // Assign variables     (Global)
     EditText home_text;
     Button search_button;
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Website
         getInternetPermission();
+        utility = new Utility();
 
         // GUI
         home_text = (EditText) findViewById(R.id.Home_Text);
@@ -75,9 +79,14 @@ public class MainActivity extends AppCompatActivity {
                     home_text.setText("Try again");
                 }
 
+                try {
+                    home_text.setText(utility.get_info());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 // go to next Activity
-                transitConnection();
+                // transitConnection();
 
             }
         });

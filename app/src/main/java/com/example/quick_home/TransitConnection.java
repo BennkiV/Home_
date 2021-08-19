@@ -25,6 +25,8 @@ public class TransitConnection extends AppCompatActivity {
         destinationTime1 = findViewById(R.id.DestinationTime1);
     }
 
+    // get the information from website and paste it into View
+    // use Utility functions
     protected void inProsses(){
 
     }

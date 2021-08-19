@@ -1,5 +1,7 @@
 package com.example.quick_home;
 
+import android.util.Log;
+
 import org.jsoup.Jsoup;
 import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Document;
@@ -10,21 +12,38 @@ import java.io.File;
 import java.io.IOException;
 
 public class Utility {
+    // Set the url to the DB website
+    String url = "https://www.bahn.de/p/view/index.shtml";
+    String text;
 
+    // Take Information from website --- In work
     public String get_info() throws IOException {
-        // 1st Try
-  /*      File input = new File("/tmp/input.html");
-        Document doc = Jsoup.parse(input, "UTF-8", "https://de.wikipedia.org/wiki/Wiki");
-
-        Elements contents = doc.select("content");  // select html class
-        Element content = contents.select("p").first();
-        String text = content.text();      // get text
-    */
-        // 2nd Try
-        Document doc = Jsoup.connect("https://de.wikipedia.org/wiki/Wiki").get();
-        Element contentDiv = doc.select("div[id=content]").first();
-        String text = contentDiv.toString();
-
+        //  get the HTML
+        // Needs new thread so the UI wont freeze
+        Thread downloadThread = new Thread(){
+            public void run(){
+                try {
+                    Document doc = Jsoup.connect(url).get();    // get the HTML
+                    Log.d("GetSite", doc.outerHtml());       // print in Log if worked
+                    text = doc.text();
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                    Log.d("GetSite", "Nop didnt tack it");  // Log info
+                }
+            }
+        };
+        downloadThread.start();
         return text; // temporary
     }
+
+    // Set values to website ---
+    public void set_Info(String location, String destination){
+        // Location and destination needs to be transmitted to the DB website(url)
+
+        return;
+    }
+
+
+
+
 }
