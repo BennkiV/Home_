@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -20,13 +21,12 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
+import org.jsoup.Jsoup;
+import org.w3c.dom.Document;
+
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Locale;
@@ -35,18 +35,12 @@ public class MainActivity extends AppCompatActivity {
 
     // Location variable    (Global)
     FusedLocationProviderClient fusedLocationProviderClient;
-    String current_location;        // string contains the current location
+    String current_location;        // string contains the current location after func getLocation
 
     // Assign variables     (Global)
     EditText home_text;
     Button search_button;
     TextView text_view1;
-
-    // Get WebSite
-    URL url;
-    HttpURLConnection urlConnection;
-    Utility utility;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Website
         getInternetPermission();
-/*        try {
-            url = new URL("https://www.bahn.de/p/view/index.shtml");        // set url on DB website
-            urlConnection = (HttpURLConnection) url.openConnection();             // open connection
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally{
-            urlConnection.disconnect();
-        }
-*/
-        try {
-            utility.open_connection("https://www.bahn.de/p/view/index.shtml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         // GUI
         home_text = (EditText) findViewById(R.id.Home_Text);
         search_button = findViewById(R.id.Search_Button);
@@ -83,33 +64,26 @@ public class MainActivity extends AppCompatActivity {
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*                // get location
-                // Test set the location directly after button click
-                getLocation();                          // get location string
-                if(current_location != null) {
-                    text_view1.setText(current_location);   // print location in text_view1
-                }else {
-                    text_view1.setText("Fail");
-                }
-*/              //-----------------------------------------------------------------------------------------
                 // execute after button pressed
                 String home = home_text.getText().toString();       // get text from home_text
                 if (!home.equalsIgnoreCase("")) {             // string compare -_-
                     // get location
                     getLocation();
                     text_view1.setText(current_location);   // print location in text_view1
-
-                    // search web
-
-
                     home_text.setText("Search...");
                 } else {
                     home_text.setText("Try again");
                 }
+
+
+                // go to next Activity
+                transitConnection();
+
             }
         });
     }
 
+    // get last known location
     private void getLocation() {
         // If permission abfrage hier, da Java sich beschwert
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -124,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Location> task) {
                 // Initialize location
                 Location location = task.getResult();
-                if (location != null) {                         // Location ist Null, function wird übersprungen !?
+                if (location != null) {
 
                     try {
                         //Initialize geoCoder
@@ -134,16 +108,7 @@ public class MainActivity extends AppCompatActivity {
                         List<Address> address = geocoder.getFromLocation(
                                 location.getLatitude(), location.getLongitude(), 1
                         );
-                        current_location = address.get(0).getAddressLine(0);          // set string to location
-
-                        // get street name and print in textView1 ----------------------------------------             !!!
-   /*                     String street = address.get(0).getAddressLine(0);     // store address as string
-                        text_view1.setText(Html.fromHtml(
-                                "<font color?'#6200'><b>Street :</b><br></font>"
-                                + address.get(0).getAddressLine(0)
-                        ));
-    */
-                        //----------------------------------------------------------            !!
+                        current_location = address.get(0).getAddressLine(0);          // set global string to location
                     } catch (IOException e) {
                         e.printStackTrace();
                         text_view1.setText("Faile");            // test
@@ -154,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // getInternetPermission
     private void getInternetPermission(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this
@@ -161,6 +127,14 @@ public class MainActivity extends AppCompatActivity {
 
             return;
         }
+    }
+
+    // Go to TransitConnection Activity
+    public void transitConnection(){
+        Intent i = new Intent(this, TransitConnection.class);
+        //  start the activity if location is found and input is "correct" and not null
+
+        startActivity(i);
     }
 
 }
