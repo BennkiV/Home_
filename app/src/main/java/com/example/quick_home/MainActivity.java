@@ -1,9 +1,5 @@
 package com.example.quick_home;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,23 +7,21 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.view.View;
+//import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+//import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-
-import org.jsoup.Jsoup;
-import org.w3c.dom.Document;
-
+//import com.google.android.gms.tasks.OnCompleteListener;
+//import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,35 +54,32 @@ public class MainActivity extends AppCompatActivity {
         utility = new Utility();
 
         // GUI
-        home_text = (EditText) findViewById(R.id.Home_Text);
+        home_text =  findViewById(R.id.Home_Text);
         search_button = findViewById(R.id.Search_Button);
         text_view1 = findViewById(R.id.textView);
 
         // Button Click
-        search_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // execute after button pressed
-                String home = home_text.getText().toString();       // get text from home_text
-                if (!home.equalsIgnoreCase("")) {             // string compare -_-
-                    // get location
-                    getLocation();
-                    text_view1.setText(current_location);   // print location in text_view1
-                    home_text.setText("Search...");
-                } else {
-                    home_text.setText("Try again");
-                }
-
- /*               try {
-                    home_text.setText(utility.get_info());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-*/
-                // go to next Activity
-                // transitConnection();
-
+        search_button.setOnClickListener(v -> {
+            // execute after button pressed
+            String home = home_text.getText().toString();       // get text from home_text
+            if (!home.equalsIgnoreCase("")) {             // string compare -_-
+                // get location
+                getLocation();
+                text_view1.setText(current_location);   // print location in text_view1
+                home_text.setText("Search...");
+            } else {
+                home_text.setText("Try again");
             }
+
+/*               try {
+                home_text.setText(utility.get_info());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+*/
+            // go to next Activity
+            // transitConnection();
+
         });
     }
 
@@ -102,28 +93,25 @@ public class MainActivity extends AppCompatActivity {
 
             return;
         }
-        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-            @Override
-            public void onComplete(@NonNull Task<Location> task) {
-                // Initialize location
-                Location location = task.getResult();
-                if (location != null) {
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(task -> {
+            // Initialize location
+            Location location = task.getResult();
+            if (location != null) {
 
-                    try {
-                        //Initialize geoCoder
-                        Geocoder geocoder = new Geocoder(MainActivity.this,
-                                Locale.getDefault());
-                        // Initialize address List
-                        List<Address> address = geocoder.getFromLocation(
-                                location.getLatitude(), location.getLongitude(), 1
-                        );
-                        current_location = address.get(0).getAddressLine(0);          // set global string to location
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        text_view1.setText("Faile");            // test
-                    }
-
+                try {
+                    //Initialize geoCoder
+                    Geocoder geocoder = new Geocoder(MainActivity.this,
+                            Locale.getDefault());
+                    // Initialize address List
+                    List<Address> address = geocoder.getFromLocation(
+                            location.getLatitude(), location.getLongitude(), 1
+                    );
+                    current_location = address.get(0).getAddressLine(0);          // set global string to location
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    text_view1.setText("Faile");            // test
                 }
+
             }
         });
     }
@@ -134,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this
                     , new String[]{Manifest.permission.INTERNET}, 44);
 
-            return;
+            //return;
         }
     }
 
