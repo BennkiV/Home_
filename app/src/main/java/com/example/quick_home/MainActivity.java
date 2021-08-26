@@ -11,18 +11,25 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+// Location
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+// Jsoup
 import org.jsoup.Jsoup;
-import org.w3c.dom.Document;
+import org.jsoup.nodes.Document;
+
+// DB API
+// import org.openapitools.client.api.DefaultApi;  // nur für vfernstrecken
 
 
 import java.io.IOException;
@@ -60,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         utility = new Utility();
 
         // GUI
-        home_text = (EditText) findViewById(R.id.Home_Text);
+        home_text =  findViewById(R.id.Home_Text);
         search_button = findViewById(R.id.Search_Button);
         text_view1 = findViewById(R.id.textView);
 
@@ -74,19 +81,14 @@ public class MainActivity extends AppCompatActivity {
                     // get location
                     getLocation();
                     text_view1.setText(current_location);   // print location in text_view1
-                    home_text.setText("Search...");
                 } else {
                     home_text.setText("Try again");
                 }
 
- /*               try {
-                    home_text.setText(utility.get_info());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-*/
+                //home_text.setText(utility.get_info());
+
                 // go to next Activity
-                // transitConnection();
+                transitConnection(current_location, home_text.getText().toString());
 
             }
         });
@@ -133,15 +135,15 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this
                     , new String[]{Manifest.permission.INTERNET}, 44);
-
-            return;
         }
     }
 
     // Go to TransitConnection Activity
-    public void transitConnection(){
+    public void transitConnection(String location, String destination){
         Intent i = new Intent(this, TransitConnection.class);
         //  start the activity if location is found and input is "correct" and not null
+        i.putExtra("location", location);
+        i.putExtra("destination", destination);
 
         startActivity(i);
     }
